@@ -2218,6 +2218,11 @@ main > .section:last-child {
   padding-inline: clamp(20px, 4vw, 72px);
   margin-top: 0;
   background: transparent;
+  border-top: none !important;
+}
+
+.simple-footer::before {
+  display: none !important;
 }
 
 .simple-footer-content {
