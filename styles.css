@@ -1273,7 +1273,7 @@ a {
 }
 
 .section {
-  padding-block: 60px;
+  padding-block: 30px;
 }
 
 main > .section:last-child {
