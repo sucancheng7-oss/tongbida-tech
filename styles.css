@@ -663,6 +663,7 @@ a {
 .about-hero-panel {
   min-height: auto;
   width: 100%;
+  max-width: 100%;
 }
 
 .about-hero-panel .hero-visual {
