@@ -347,8 +347,9 @@ a {
 }
 
 .about-hero {
-  grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
-  align-items: stretch;
+  grid-template-columns: minmax(0, 900px);
+  justify-content: center;
+  justify-items: center;
   align-content: center;
   min-height: calc(100vh - 120px);
 }
@@ -389,10 +390,10 @@ a {
 }
 
 .about-hero .page-hero-copy {
-  max-width: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 }
 
 .hero-text,
@@ -659,7 +660,8 @@ a {
 }
 
 .about-hero-panel {
-  min-height: 100%;
+  min-height: auto;
+  width: 100%;
 }
 
 .about-hero-panel .hero-visual {
