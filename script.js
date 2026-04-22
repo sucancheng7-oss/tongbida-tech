@@ -59,15 +59,6 @@ function updateScrollState() {
   if (nav) {
     nav.classList.toggle("is-scrolled", scrollTop > 14);
 
-    // === 新增：滚动隐藏导航栏逻辑 ===
-    // 向下滚动隐藏，向上滚动显示
-    if (scrollTop > lastScrollY && scrollTop > 100) {
-      // 向下滚动
-      nav.classList.add("is-hidden");
-    } else {
-      // 向上滚动
-      nav.classList.remove("is-hidden");
-    }
     lastScrollY = scrollTop;
   }
 }
