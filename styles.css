@@ -2194,3 +2194,51 @@ a {
   }
 }
 
+/* === 新增：底部简单通用 Footer === */
+.simple-footer {
+  padding-block: 60px;
+  border-top: 1px solid rgba(29, 29, 31, 0.08);
+  margin-top: 40px;
+  background: transparent;
+}
+
+.simple-footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.simple-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.simple-footer-links a {
+  color: #6f7b89;
+  font-size: 0.85rem;
+  transition: color 150ms ease;
+  text-decoration: none;
+}
+
+.simple-footer-links a:hover {
+  color: var(--text);
+}
+
+.simple-footer-links .separator {
+  color: rgba(29, 29, 31, 0.15);
+  font-size: 0.85rem;
+}
+
+.simple-footer-copyright p {
+  margin: 0;
+  color: #999;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
