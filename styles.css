@@ -347,10 +347,11 @@ a {
 }
 
 .about-hero {
-  grid-template-columns: minmax(0, 900px);
+  grid-template-columns: 1fr;
   justify-content: center;
-  justify-items: center;
   align-content: center;
+  width: 100%;
+  max-width: 1200px;
   min-height: auto;
 }
 
