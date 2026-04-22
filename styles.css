@@ -347,11 +347,14 @@ a {
 }
 
 .about-hero {
-  grid-template-columns: 1fr;
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch !important;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   min-height: auto;
+  gap: 40px;
 }
 
 .hero-copy h1,
@@ -394,7 +397,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  max-width: 100%;
+  max-width: 100% !important;
 }
 
 .hero-text,
@@ -663,7 +666,7 @@ a {
 .about-hero-panel {
   min-height: auto;
   width: 100%;
-  max-width: 100%;
+  max-width: 100% !important;
 }
 
 .about-hero-panel .hero-visual {
