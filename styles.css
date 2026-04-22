@@ -388,8 +388,9 @@ a {
 }
 
 .page-hero-copy {
-  max-width: 760px;
-  padding: 34px 36px;
+  width: 100%;
+  max-width: none;
+  padding: 40px 48px;
   border-radius: 32px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.48));
   border: 1px solid rgba(255, 255, 255, 0.85);
