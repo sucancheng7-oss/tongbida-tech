@@ -352,7 +352,7 @@ a {
   align-items: stretch !important;
   width: 100%;
   max-width: none;
-  padding-top: 140px;
+  padding-top: 96px;
   padding-bottom: 40px;
   padding-inline: clamp(20px, 4vw, 72px);
   box-sizing: border-box;
