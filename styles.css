@@ -353,7 +353,7 @@ a {
   width: 100%;
   max-width: none;
   padding-top: 80px;
-  padding-bottom: 40px;
+  padding-bottom: 32px;
   padding-inline: clamp(20px, 4vw, 72px);
   box-sizing: border-box;
   margin: 0 auto;
