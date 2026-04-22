@@ -341,8 +341,8 @@ a {
 }
 
 .page-hero {
-  min-height: 340px;
-  padding-block: 86px 52px;
+  min-height: 280px;
+  padding-block: 60px 40px;
   align-items: end;
 }
 
@@ -351,7 +351,7 @@ a {
   justify-content: center;
   justify-items: center;
   align-content: center;
-  min-height: calc(100vh - 120px);
+  min-height: auto;
 }
 
 .hero-copy h1,
@@ -1273,7 +1273,7 @@ a {
 }
 
 .section {
-  padding-block: 132px;
+  padding-block: 80px;
 }
 
 .section-alt {
