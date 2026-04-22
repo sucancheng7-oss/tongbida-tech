@@ -327,12 +327,7 @@ function initPolicyModal() {
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
-        <div class="policy-sidebar">
-          <button class="policy-tab active" data-target="terms">服务条款</button>
-          <button class="policy-tab" data-target="privacy">隐私政策</button>
-          <button class="policy-tab" data-target="aup">可接受使用政策</button>
-        </div>
-        <div class="policy-content-area">
+        <div class="policy-content-area single-card-mode">
           <div class="policy-pane active" id="policy-pane-terms">
             <h3>服务条款</h3>
             <p>欢迎使用通必达科技平台。本服务条款约束您访问和使用通必达科技网站、产品及服务。请您仔细阅读本条款内容。</p>
@@ -378,13 +373,12 @@ function initPolicyModal() {
 
   const overlay = document.getElementById("policy-modal-overlay");
   const closeBtn = document.getElementById("policy-modal-close");
-  const tabs = document.querySelectorAll(".policy-tab");
   const panes = document.querySelectorAll(".policy-pane");
 
   function openPolicyModal(targetId) {
     overlay.classList.add("is-visible");
     document.body.style.overflow = "hidden";
-    switchTab(targetId);
+    showPane(targetId);
   }
 
   function closePolicyModal() {
@@ -392,30 +386,17 @@ function initPolicyModal() {
     document.body.style.overflow = "";
   }
 
-  function switchTab(targetId) {
-    tabs.forEach(tab => {
-      if (tab.dataset.target === targetId) {
-        tab.classList.add("active");
-      } else {
-        tab.classList.remove("active");
-      }
-    });
-
+  function showPane(targetId) {
     panes.forEach(pane => {
       if (pane.id === `policy-pane-${targetId}`) {
         pane.classList.add("active");
+        // scroll to top when opening a pane
+        pane.parentElement.scrollTop = 0;
       } else {
         pane.classList.remove("active");
       }
     });
   }
-
-  // 绑定Tab点击事件
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      switchTab(tab.dataset.target);
-    });
-  });
 
   // 绑定关闭事件
   closeBtn.addEventListener("click", closePolicyModal);
