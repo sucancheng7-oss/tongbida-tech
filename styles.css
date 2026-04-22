@@ -348,10 +348,9 @@ a {
 
 .about-hero {
   grid-template-columns: 1fr;
-  justify-content: center;
-  align-content: center;
   width: 100%;
   max-width: 1200px;
+  margin: 0 auto;
   min-height: auto;
 }
 
@@ -395,6 +394,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  max-width: 100%;
 }
 
 .hero-text,
