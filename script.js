@@ -308,8 +308,142 @@ function initContactModal() {
 
 // 文档就绪后初始化
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initContactModal);
+  document.addEventListener("DOMContentLoaded", () => {
+    initContactModal();
+    initPolicyModal();
+  });
 } else {
   initContactModal();
+  initPolicyModal();
+}
+
+function initPolicyModal() {
+  const html = `
+    <div class="policy-modal-overlay" id="policy-modal-overlay">
+      <div class="policy-modal-container">
+        <button class="policy-modal-close" id="policy-modal-close" aria-label="关闭">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="policy-sidebar">
+          <button class="policy-tab active" data-target="terms">服务条款</button>
+          <button class="policy-tab" data-target="privacy">隐私政策</button>
+          <button class="policy-tab" data-target="aup">可接受使用政策</button>
+        </div>
+        <div class="policy-content-area">
+          <div class="policy-pane active" id="policy-pane-terms">
+            <h3>服务条款</h3>
+            <p>欢迎使用通必达科技平台。本服务条款约束您访问和使用通必达科技网站、产品及服务。请您仔细阅读本条款内容。</p>
+            <h4>1. 接受条款</h4>
+            <p>当您访问或使用本服务，即表示您同意受本条款及所有相关政策（包括但不限于隐私政策）的约束。</p>
+            <h4>2. 服务提供</h4>
+            <p>我们保留在任何时候以任何理由修改或终止服务的权利，恕不另行通知。我们保留在任何时候更改这些条款的权利。修改后的条款将会在网站上公布。</p>
+            <h4>3. 用户责任</h4>
+            <p>您不得利用本平台从事任何违反法律法规、危害网络安全、或侵犯第三方合法权益的行为。否则我们有权随时暂停或终止您的账户。</p>
+            <h4>4. 免责声明</h4>
+            <p>本服务按“原样”及“可用”基础提供，我们不对服务的准确性、可靠性或无误性作任何明示或暗示的保证。</p>
+          </div>
+          <div class="policy-pane" id="policy-pane-privacy">
+            <h3>隐私政策</h3>
+            <p>通必达科技深知隐私对您的重要性，并会尊重您的隐私。本政策描述了我们如何收集、使用、存储及共享您的个人信息。</p>
+            <h4>1. 信息收集</h4>
+            <p>在您注册或使用我们的服务时，我们可能会收集您的公司名称、联系人信息、邮箱及使用行为等信息。</p>
+            <h4>2. 信息使用</h4>
+            <p>收集到的信息仅用于向您提供更好、更个性化的服务，包含服务通知、安全验证、产品改进等。</p>
+            <h4>3. 数据安全</h4>
+            <p>我们使用行业标准的加密技术和安全防护机制来保护您的个人信息，防止数据泄露或被未经授权的访问。</p>
+            <h4>4. 第三方共享</h4>
+            <p>除法律法规要求或为实现服务所必需外，我们不会向任何第三方出售、交易或转移您的个人信息。</p>
+          </div>
+          <div class="policy-pane" id="policy-pane-aup">
+            <h3>可接受使用政策</h3>
+            <p>本政策概述了您在使用通必达科技服务时被禁止的行为。此政策是对《服务条款》的补充。</p>
+            <h4>1. 禁止滥用</h4>
+            <p>您不得以任何可能破坏、瘫痪、过度负担或损害我们服务器及网络的方式使用服务。</p>
+            <h4>2. 恶意活动</h4>
+            <p>严禁利用我们的平台发送垃圾邮件、传播病毒木马、或进行任何形式的网络攻击。</p>
+            <h4>3. 违规处理</h4>
+            <p>如果发现任何违反本政策的行为，我们将立即采取行动，包括限制、暂停或永久终止您对服务的访问权。</p>
+            <h4>4. 知识产权保护</h4>
+            <p>您不得上传、分享或分发任何侵犯他人版权、商标权、商业秘密或其他合法权益的内容。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML("beforeend", html);
+
+  const overlay = document.getElementById("policy-modal-overlay");
+  const closeBtn = document.getElementById("policy-modal-close");
+  const tabs = document.querySelectorAll(".policy-tab");
+  const panes = document.querySelectorAll(".policy-pane");
+
+  function openPolicyModal(targetId) {
+    overlay.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    switchTab(targetId);
+  }
+
+  function closePolicyModal() {
+    overlay.classList.remove("is-visible");
+    document.body.style.overflow = "";
+  }
+
+  function switchTab(targetId) {
+    tabs.forEach(tab => {
+      if (tab.dataset.target === targetId) {
+        tab.classList.add("active");
+      } else {
+        tab.classList.remove("active");
+      }
+    });
+
+    panes.forEach(pane => {
+      if (pane.id === `policy-pane-${targetId}`) {
+        pane.classList.add("active");
+      } else {
+        pane.classList.remove("active");
+      }
+    });
+  }
+
+  // 绑定Tab点击事件
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      switchTab(tab.dataset.target);
+    });
+  });
+
+  // 绑定关闭事件
+  closeBtn.addEventListener("click", closePolicyModal);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closePolicyModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("is-visible")) {
+      closePolicyModal();
+    }
+  });
+
+  // 拦截底部链接点击
+  document.querySelectorAll('.simple-footer-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const text = link.innerText.trim();
+      if (text === '服务条款') {
+        e.preventDefault();
+        openPolicyModal('terms');
+      } else if (text === '隐私政策') {
+        e.preventDefault();
+        openPolicyModal('privacy');
+      } else if (text === '可接受使用政策') {
+        e.preventDefault();
+        openPolicyModal('aup');
+      }
+    });
+  });
 }
 
