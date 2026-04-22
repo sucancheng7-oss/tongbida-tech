@@ -1273,7 +1273,11 @@ a {
 }
 
 .section {
-  padding-block: 80px;
+  padding-block: 60px;
+}
+
+main > .section:last-child {
+  padding-bottom: 20px;
 }
 
 .section-alt {
@@ -2200,8 +2204,8 @@ a {
 
 /* === 新增：底部简单通用 Footer === */
 .simple-footer {
-  padding-block: 40px 60px;
-  margin-top: 20px;
+  padding-block: 20px 40px;
+  margin-top: 0;
   background: transparent;
 }
 
