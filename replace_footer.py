@@ -3,6 +3,11 @@ import re
 
 new_footer = """    <footer class="site-footer simple-footer">
       <div class="simple-footer-content">
+        <div class="simple-footer-lang">
+          <a href="#" class="lang-switch active">中文</a>
+          <span class="separator">|</span>
+          <a href="#" class="lang-switch">英文</a>
+        </div>
         <div class="simple-footer-links">
           <a href="./about.html#contact">联系我们</a>
           <span class="separator">|</span>
@@ -22,8 +27,8 @@ for filepath in glob.glob('*.html'):
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Use regex to find <footer class="site-footer">...</footer> and replace it
-    content = re.sub(r'<footer class="site-footer">.*?</footer>', new_footer, content, flags=re.DOTALL)
+    # Use regex to find <footer class="site-footer simple-footer">...</footer> and replace it
+    content = re.sub(r'<footer class="site-footer simple-footer">.*?</footer>', new_footer, content, flags=re.DOTALL)
     
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(content)

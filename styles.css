@@ -2218,6 +2218,35 @@ a {
   backdrop-filter: blur(20px);
 }
 
+.simple-footer-lang {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.simple-footer-lang .lang-switch {
+  color: #6f7b89;
+  font-size: 0.9rem;
+  transition: color 150ms ease;
+  text-decoration: none;
+}
+
+.simple-footer-lang .lang-switch:hover {
+  color: var(--text);
+}
+
+.simple-footer-lang .lang-switch.active {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.simple-footer-lang .separator {
+  color: rgba(29, 29, 31, 0.15);
+  font-size: 0.9rem;
+}
+
 .simple-footer-links {
   display: flex;
   align-items: center;
