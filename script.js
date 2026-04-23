@@ -28,20 +28,39 @@ tiltCards.forEach((card) => {
     return;
   }
 
-  card.addEventListener("pointermove", (event) => {
-    const bounds = card.getBoundingClientRect();
-    const offsetX = event.clientX - bounds.left;
-    const offsetY = event.clientY - bounds.top;
-    const rotateY = ((offsetX / bounds.width) - 0.5) * 8;
-    const rotateX = (0.5 - (offsetY / bounds.height)) * 8;
+  let bounds;
+  let ticking = false;
+  let mouseX = 0;
+  let mouseY = 0;
 
-    card.style.setProperty("--rotate-x", `${rotateX.toFixed(2)}deg`);
-    card.style.setProperty("--rotate-y", `${rotateY.toFixed(2)}deg`);
-    card.style.setProperty("--pointer-x", `${((offsetX / bounds.width) * 100).toFixed(2)}%`);
-    card.style.setProperty("--pointer-y", `${((offsetY / bounds.height) * 100).toFixed(2)}%`);
+  card.addEventListener("pointerenter", () => {
+    bounds = card.getBoundingClientRect();
+  });
+
+  card.addEventListener("pointermove", (event) => {
+    if (!bounds) bounds = card.getBoundingClientRect();
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const offsetX = mouseX - bounds.left;
+        const offsetY = mouseY - bounds.top;
+        const rotateY = ((offsetX / bounds.width) - 0.5) * 8;
+        const rotateX = (0.5 - (offsetY / bounds.height)) * 8;
+
+        card.style.setProperty("--rotate-x", `${rotateX.toFixed(2)}deg`);
+        card.style.setProperty("--rotate-y", `${rotateY.toFixed(2)}deg`);
+        card.style.setProperty("--pointer-x", `${((offsetX / bounds.width) * 100).toFixed(2)}%`);
+        card.style.setProperty("--pointer-y", `${((offsetY / bounds.height) * 100).toFixed(2)}%`);
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
 
   card.addEventListener("pointerleave", () => {
+    bounds = null;
     card.style.removeProperty("--rotate-x");
     card.style.removeProperty("--rotate-y");
     card.style.removeProperty("--pointer-x");
@@ -53,13 +72,19 @@ const nav = document.getElementById("site-nav");
 const navPanel = document.getElementById("nav-panel");
 const menuToggle = document.getElementById("menu-toggle");
 let lastScrollY = 0;
+let navTicking = false;
 
 function updateScrollState() {
-  const scrollTop = window.scrollY;
-  if (nav) {
-    nav.classList.toggle("is-scrolled", scrollTop > 14);
-
-    lastScrollY = scrollTop;
+  if (!navTicking) {
+    window.requestAnimationFrame(() => {
+      const scrollTop = window.scrollY;
+      if (nav) {
+        nav.classList.toggle("is-scrolled", scrollTop > 14);
+        lastScrollY = scrollTop;
+      }
+      navTicking = false;
+    });
+    navTicking = true;
   }
 }
 
@@ -118,18 +143,25 @@ function animateCounter(element, target) {
   }
 
   const duration = 1200; // 持续时间（毫秒）
-  const increment = target / (duration / 16); // 每帧增长量
-  let current = 0;
+  let startTimestamp = null;
 
-  const counter = setInterval(() => {
-    current += increment;
-    if (current >= target) {
-      element.textContent = target;
-      clearInterval(counter);
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    
+    // easeOutQuart 缓动函数
+    const easeProgress = 1 - Math.pow(1 - progress, 4);
+    
+    element.textContent = Math.floor(easeProgress * target);
+    
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
     } else {
-      element.textContent = Math.floor(current);
+      element.textContent = target;
     }
-  }, 16);
+  };
+  
+  window.requestAnimationFrame(step);
 }
 
 // 为所有统计数据启用计数器动画
@@ -156,14 +188,22 @@ document.querySelectorAll(".hero-data-strip div, .metric-card, .case-metrics div
 
 // === 新增：视差滚动效果 ===
 if (!prefersReducedMotion) {
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
+  const glows = document.querySelectorAll(".glow");
+  let parallaxTicking = false;
 
-    // 为背景光晕添加视差效果
-    document.querySelectorAll(".glow").forEach((glow, index) => {
-      const speed = 0.5 + (index * 0.1);
-      glow.style.transform = `translateY(${scrollY * speed}px)`;
-    });
+  window.addEventListener("scroll", () => {
+    if (!parallaxTicking) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        // 为背景光晕添加视差效果
+        glows.forEach((glow, index) => {
+          const speed = 0.5 + (index * 0.1);
+          glow.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+        parallaxTicking = false;
+      });
+      parallaxTicking = true;
+    }
   }, { passive: true });
 }
 
@@ -428,3 +468,54 @@ function initPolicyModal() {
   });
 }
 
+
+// 产品中心 Tab 切换逻辑
+document.addEventListener('DOMContentLoaded', () => {
+  const rolePills = document.querySelectorAll('.role-pill');
+  const stackCards = document.querySelectorAll('.product-stack .stack-card');
+
+  if (rolePills.length > 0 && stackCards.length > 0) {
+    rolePills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const targetTab = pill.getAttribute('data-tab');
+        
+        // 移除所有的 active 类
+        rolePills.forEach(p => p.classList.remove('active'));
+        stackCards.forEach(c => c.classList.remove('active'));
+        
+        // 给当前点击的标签和对应的内容添加 active
+        pill.classList.add('active');
+        const targetCard = document.querySelector(`.product-stack .stack-card[data-tab="${targetTab}"]`);
+        if (targetCard) {
+          targetCard.classList.add('active');
+        }
+      });
+    });
+  }
+
+  // === FAQ Page Tab Switching ===
+  const faqNavItems = document.querySelectorAll('.faq-nav-item');
+  const faqArticles = document.querySelectorAll('.faq-article');
+
+  if (faqNavItems.length > 0 && faqArticles.length > 0) {
+    faqNavItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active class from all
+        faqNavItems.forEach(nav => nav.classList.remove('active'));
+        faqArticles.forEach(article => article.classList.remove('active'));
+        
+        // Add active class to clicked item
+        item.classList.add('active');
+        
+        // Show corresponding article
+        const targetId = item.getAttribute('href').substring(1);
+        const targetArticle = document.getElementById(targetId);
+        if (targetArticle) {
+          targetArticle.classList.add('active');
+        }
+      });
+    });
+  }
+});

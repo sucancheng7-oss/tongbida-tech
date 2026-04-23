@@ -36,8 +36,6 @@
         <div class="nav-panel" id="nav-panel">
           <a class="nav-link" data-nav="index" href="./index.html">首页</a>
           <a class="nav-link" data-nav="products" href="./products.html">产品中心</a>
-          <a class="nav-link" data-nav="solutions" href="./solutions.html">解决方案</a>
-          <a class="nav-link" data-nav="cases" href="./cases.html">客户案例</a>
           <a class="nav-link" data-nav="help" href="./help.html">帮助中心</a>
           <a class="nav-link" data-nav="about" href="./about.html">关于我们</a>
         </div>
@@ -74,16 +72,16 @@
         </div>
 
         <div class="role-strip reveal reveal-up">
-          <div class="role-pill">客户端</div>
-          <div class="role-pill">商家端</div>
-          <div class="role-pill">仓库端</div>
-          <div class="role-pill">业务员端</div>
-          <div class="role-pill">AI 客服</div>
-          <div class="role-pill">财务中心</div>
+          <div class="role-pill active" data-tab="0">客户端</div>
+          <div class="role-pill" data-tab="1">商家端</div>
+          <div class="role-pill" data-tab="2">仓库端</div>
+          <div class="role-pill" data-tab="3">业务员端</div>
+          <div class="role-pill" data-tab="4">AI 客服</div>
+          <div class="role-pill" data-tab="5">财务中心</div>
         </div>
 
         <div class="product-stack">
-          <article class="stack-card tilt-card reveal reveal-up">
+          <article class="stack-card tilt-card active" data-tab="0">
             <div class="stack-head">
               <span class="tag">P01</span>
               <h2>客户订货端</h2>
@@ -97,7 +95,7 @@
             </div>
           </article>
 
-          <article class="stack-card tilt-card reveal reveal-up stagger-1">
+          <article class="stack-card tilt-card" data-tab="1">
             <div class="stack-head">
               <span class="tag">P02</span>
               <h2>商家经营端</h2>
@@ -111,7 +109,7 @@
             </div>
           </article>
 
-          <article class="stack-card tilt-card reveal reveal-up stagger-2">
+          <article class="stack-card tilt-card" data-tab="2">
             <div class="stack-head">
               <span class="tag">P03</span>
               <h2>库存与采购协同</h2>
@@ -125,17 +123,45 @@
             </div>
           </article>
 
-          <article class="stack-card tilt-card reveal reveal-up stagger-3">
+          <article class="stack-card tilt-card" data-tab="3">
             <div class="stack-head">
               <span class="tag">P04</span>
-              <h2>财务与业务支撑</h2>
+              <h2>业务员拓客与跟进</h2>
             </div>
-            <p>把账款、资金流水、客户欠款、业务打卡和销售排名等能力接入同一系统，让经营动作与结果数据同步可见。</p>
+            <p>为外勤业务员提供移动端的客户拜访、代客下单、销售数据查看等工具，提升一线销售执行力。</p>
             <div class="mini-grid">
-              <div>财务看板与账户管理</div>
-              <div>应收应付与收支流水</div>
-              <div>业务员打卡与销售排名</div>
-              <div>AI 客服与人工服务承接</div>
+              <div>外勤打卡与轨迹追踪</div>
+              <div>客户拜访与沟通记录</div>
+              <div>业务员代客下单</div>
+              <div>个人销售业绩看板</div>
+            </div>
+          </article>
+
+          <article class="stack-card tilt-card" data-tab="4">
+            <div class="stack-head">
+              <span class="tag">P05</span>
+              <h2>智能客服助手</h2>
+            </div>
+            <p>接入AI大模型能力，7x24小时自动回复常见业务问题、商品查询及订单状态，辅助人工坐席提升服务体验。</p>
+            <div class="mini-grid">
+              <div>订单物流自动查询</div>
+              <div>常见问题(FAQ)智能问答</div>
+              <div>商品推荐与活动解答</div>
+              <div>AI客服与人工无缝转接</div>
+            </div>
+          </article>
+
+          <article class="stack-card tilt-card" data-tab="5">
+            <div class="stack-head">
+              <span class="tag">P06</span>
+              <h2>财务与资金结算</h2>
+            </div>
+            <p>把账款、资金流水、客户欠款等能力接入系统，自动生成对账单，让财务人员摆脱繁琐的手工记账对账。</p>
+            <div class="mini-grid">
+              <div>客户信用额度与欠款</div>
+              <div>多渠道收款与账户流水</div>
+              <div>应收应付账单管理</div>
+              <div>财务数据可视化看板</div>
             </div>
           </article>
         </div>
